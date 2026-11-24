@@ -40,6 +40,22 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders', 'stats', 'status', 'q', 'statusLabels'));
     }
 
+    public function show(Order $order)
+    {
+        $order->load(['items.product', 'items.variant', 'user', 'payment']);
+        $statusLabels = Order::STATUS_LABELS;
+        return view('admin.orders.show', compact('order', 'statusLabels'));
+    }
+
+    public function receipt(Order $order)
+    {
+        $order->load(['items.product', 'items.variant', 'payment']);
+        return view('orders.receipt', [
+            'order' => $order,
+            'backUrl' => route('admin.orders.show', $order),
+        ]);
+    }
+
     public function updateStatus(Request $request, Order $order, StockService $stockService)
     {
         $data = $request->validate([

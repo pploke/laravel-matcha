@@ -101,10 +101,10 @@
                                     </form>
                                     @endif
 
-                                    <button type="button" data-open-dialog="order-{{ $order->id }}"
-                                        class="rounded-lg border border-matcha-200 px-2.5 py-1 text-xs font-semibold text-matcha-700 transition hover:bg-matcha-50">
+                                    <a href="{{ route('admin.orders.show', $order) }}"
+                                        class="rounded-lg border border-matcha-200 px-2.5 py-1 text-xs font-semibold text-matcha-700 no-underline transition hover:bg-matcha-50">
                                         <i class="bi bi-eye mr-1"></i> Detail
-                                    </button>
+                                    </a>
 
                                     @if($order->order_status === 'PROCESSING' && $order->payment_status === 'PAID')
                                     <form method="POST" action="{{ route('admin.orders.status', $order) }}"

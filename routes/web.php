@@ -15,6 +15,7 @@ use App\Http\Controllers\OrderHistoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ShippingController;
+use App\Http\Controllers\OrderDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,8 @@ Route::delete('/keranjang/{row}', [CartController::class, 'remove'])->name('cart
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/riwayat-pesanan', [OrderHistoryController::class, 'index'])->name('orders.history');
+Route::get('/pesanan/{order}', [OrderDetailController::class, 'show'])->name('orders.show');
+Route::get('/pesanan/{order}/struk', [OrderDetailController::class, 'receipt'])->name('orders.receipt');
 
 /*
 |--------------------------------------------------------------------------
@@ -113,6 +116,8 @@ Route::prefix('admin')
         Route::get('/stok', [StockController::class, 'index'])->name('stock.index');
 
         Route::get('/pesanan', [AdminOrderController::class, 'index'])->name('orders.index');
+        Route::get('/pesanan/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
+        Route::get('/pesanan/{order}/struk', [AdminOrderController::class, 'receipt'])->name('orders.receipt');
         Route::patch('/pesanan/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.status');
         Route::patch('/pesanan/{order}/lunas', [AdminOrderController::class, 'markPaid'])->name('orders.paid');
         Route::get('/laporan-penjualan', [ReportController::class, 'daily'])
